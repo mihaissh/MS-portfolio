@@ -3,7 +3,7 @@ import { ExternalLink, Github, Search, Filter, Sparkles, Code2 } from 'lucide-re
 import { FEATURED_PROJECTS } from '../data/resumeData';
 import { ProjectItem } from '../types/resume';
 
-export const FeaturedProjects: React.FC = () => {
+export function FeaturedProjects() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 

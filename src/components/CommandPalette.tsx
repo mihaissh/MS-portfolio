@@ -9,12 +9,12 @@ interface CommandPaletteProps {
   onDownloadResume: () => void;
 }
 
-export const CommandPalette: React.FC<CommandPaletteProps> = ({
+export function CommandPalette({
   isOpen,
   onClose,
   onNavigate,
-  onDownloadResume
-}) => {
+  onDownloadResume,
+}: CommandPaletteProps) {
   const [query, setQuery] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedJson, setCopiedJson] = useState(false);

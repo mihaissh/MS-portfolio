@@ -8,7 +8,7 @@ import { CertificationsDownloads } from './components/CertificationsDownloads';
 import { AboutSection } from './components/AboutSection';
 import { CommandPalette } from './components/CommandPalette';
 
-export const App: React.FC = () => {
+export function App() {
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Terminal, Coffee, Cpu, MapPin } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
-export const AboutSection: React.FC = () => {
+export function AboutSection() {
   return (
     <section id="about" className="py-10 border-b border-[#403e43]">
       {/* Code Comment Header */}
