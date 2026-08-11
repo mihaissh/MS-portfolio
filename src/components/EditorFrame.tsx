@@ -21,13 +21,13 @@ interface EditorFrameProps {
   onDownloadResume: () => void;
 }
 
-export const EditorFrame: React.FC<EditorFrameProps> = ({
+export function EditorFrame({
   children,
   activeSection,
   onNavigate,
   onOpenCommandPalette,
   onDownloadResume,
-}) => {
+}: EditorFrameProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const lineNumbers = Array.from({ length: 180 }, (_, i) => i + 1);
@@ -58,16 +58,6 @@ export const EditorFrame: React.FC<EditorFrameProps> = ({
 
         {/* Right: Actions & Diagnostics */}
         <div className="flex items-center space-x-3 shrink-0">
-          {/* Quick Command Palette launcher button */}
-          <button
-            onClick={onOpenCommandPalette}
-            className="px-2 py-0.5 bg-[#2d2a2e] hover:bg-[#403e43] border border-[#403e43] text-[#a8a2a8] hover:text-[#fcfcfa] rounded text-[11px] font-mono transition-colors flex items-center space-x-1.5"
-            title="Open Command Palette (Ctrl+K)"
-          >
-            <span className="text-[#5ad4e6]">⌘K</span>
-            <span className="hidden sm:inline text-[#727072]">Commands</span>
-          </button>
-
           <div className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono text-[#7bd88f]">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#7bd88f]" />
             <span>0 errors</span>

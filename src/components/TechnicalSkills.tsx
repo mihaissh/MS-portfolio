@@ -2,7 +2,7 @@ import React from 'react';
 import { Code, Server, Database, Cpu, Terminal, CheckCircle } from 'lucide-react';
 import { TECHNICAL_SKILLS } from '../data/resumeData';
 
-export const TechnicalSkills: React.FC = () => {
+export function TechnicalSkills() {
   return (
     <section id="skills" className="py-10 border-b border-[#403e43]">
       {/* Code Comment Header */}

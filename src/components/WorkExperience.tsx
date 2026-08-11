@@ -2,7 +2,7 @@ import React from 'react';
 import { Calendar, MapPin, ChevronRight } from 'lucide-react';
 import { WORK_EXPERIENCE } from '../data/resumeData';
 
-export const WorkExperience: React.FC = () => {
+export function WorkExperience() {
   return (
     <section id="experience" className="py-10 border-b border-[#403e43]">
       {/* Comment Header */}

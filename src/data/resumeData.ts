@@ -9,7 +9,7 @@ export const PERSONAL_INFO = {
   email: "mstraculencu@gmail.com",
   github: "https://github.com/mihaissh",
   githubUsername: "mihaissh",
-  linkedin: "https://linkedin.com/in/straculencu-mihai",
+  linkedin: "https://www.linkedin.com/in/straculencu-mihai/",
   linkedinUsername: "straculencu-mihai",
   portfolioUrl: "https://www.mstraculencu.dev/",
   tagline: "I build web apps with React, TypeScript, and Next.js. I also use AI tools every day to write better code faster.",
@@ -29,50 +29,51 @@ export const NAV_ITEMS: NavItem[] = [
 export const WORK_EXPERIENCE: ExperienceItem[] = [
   {
     id: "freelance-frontend",
-    role: "Frontend Developer",
+    role: "Full-Stack & Frontend Developer",
     company: "Freelance & Client Projects",
-    location: "Remote & Flexible Location",
+    location: "Remote & Brașov, Romania",
     period: "2022 — Present",
     isCurrent: true,
     declaration: "const freelanceProjects: ClientWork[] =",
     description: [
-      "Built websites and landing pages for clients like Raypath, Sophia Houses, and Betonix using React, Next.js, TypeScript, and Tailwind CSS.",
-      "Built the Remax.md property map with OpenStreetMap markers, location filtering, and Docker deployment.",
-      "Built the Cofetăria Marshal Brăila bakery site with GSAP scroll animations and fast image loading.",
-      "Connected APIs and handled data with Node.js, Express, PostgreSQL, MongoDB, and JWT auth.",
-      "Used AI coding tools daily to write code faster, fix bugs, and handle repetitive tasks.",
-      "Wrote tests with Jest & React Testing Library and managed deployments on Vercel and Netlify."
+      "Built client business platforms (Raypath, Sophia Houses, Betonix) using Next.js and Tailwind CSS with React Hook Form and WebP image pipelines.",
+      "Built the Remax.md interactive property map with OpenStreetMap, JavaScript, and Bootstrap, improving search speed and mobile layouts.",
+      "Built the Cofetăria Marshal Brăila bakery site featuring GSAP scroll animations, product showcases, and responsive menus.",
+      "Integrated REST APIs and backend services using Node.js, Express, PostgreSQL, MongoDB, DBeaver, Clerk, and JWT auth.",
+      "Explored Gen AI workflows with LLM API integrations, prompt engineering, and document search scripts in Node.js.",
+      "Wrote unit tests using Jest and React Testing Library; managed deployments on Vercel and Netlify."
     ],
-    tech: ["React 19", "Next.js 14", "TypeScript", "Tailwind CSS", "GSAP", "Jest", "Vercel", "Node.js", "Express"]
+    tech: ["React 19", "Next.js 14", "TypeScript", "Tailwind CSS", "GSAP", "Jest", "Vercel", "Node.js", "Express", "PostgreSQL", "MongoDB"]
   },
   {
     id: "romstal-ops",
     role: "Store Operations & Stock Management",
-    company: "Romstal",
+    company: "Romstal Brașov & Bran",
     location: "Brașov & Bran, Romania",
     period: "2024 — 2025",
     isCurrent: false,
     declaration: "const romstalTool: OperationsSoftware =",
     description: [
-      "Managed inventory, equipment lookups, and stock codes for HVAC and plumbing products.",
-      "Built 'Romstal Stock Search', a mobile PWA using React, TypeScript, Vite, and Supabase for quick stock lookups on the warehouse floor."
+      "Handled stock code lookups, product catalogs, and inventory references for HVAC, plumbing, and sanitary equipment across Brașov and Bran store locations.",
+      "Built 'Romstal Stock Search', a mobile product search tool using React, TypeScript, Vite, and Supabase so warehouse staff could look up stock codes instantly on their phones instead of searching through PDF price lists."
     ],
-    tech: ["React", "TypeScript", "Vite", "Supabase", "PWA", "Inventory Logistics"]
+    tech: ["React 19", "TypeScript", "Vite", "Supabase", "PWA", "Inventory Logistics"]
   },
   {
     id: "independent-projects",
-    role: "Independent Web & AI Developer",
+    role: "Independent Web & Tool Developer",
     company: "Open Source & Personal R&D",
-    location: "Remote / Open Location",
+    location: "Brașov, Romania",
     period: "2022 — Present",
     isCurrent: true,
     declaration: "const independentLaboratories: OpenSourceLab[] =",
     description: [
-      "Built the Quin69 VOD Archive — a viewer with live Twitch chat replay, timestamp search, and Vercel hosting.",
-      "Built Quin69 Playlist Tracker, which reads live stream chat and pulls matching tracks from Spotify & YouTube.",
-      "Used AI tools and LLM APIs to build personal automation scripts and developer utilities."
+      "Built Quin69 VOD Archive — a Twitch stream viewer with synced live chat replay, log search, and player keyboard shortcuts.",
+      "Built Quin69 Playlist Tracker, a song request monitor polling Twitch chat logs every 30 seconds with direct links for Spotify and YouTube.",
+      "Built real-time web apps using Firebase, custom CSS layouts, and state-driven math calculators.",
+      "Used AI tools and LLM APIs to build personal automation utilities, stream data parsers, and developer scripts."
     ],
-    tech: ["Next.js 14", "React", "LLM APIs", "AI Coding Assistants", "TypeScript", "Material UI", "Tailwind"]
+    tech: ["Next.js 14", "React", "Firebase", "LLM APIs", "AI Coding Assistants", "TypeScript", "Material UI", "Tailwind CSS"]
   }
 ];
 

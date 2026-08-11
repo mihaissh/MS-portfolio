@@ -6,7 +6,7 @@ interface HeroSectionProps {
   onDownloadResume: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onDownloadResume }) => {
+export function HeroSection({ onDownloadResume }: HeroSectionProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = () => {
@@ -107,11 +107,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDownloadResume }) =>
             {/* Syntax Highlighted Props */}
             <pre className="text-[#a8a2a8] leading-relaxed overflow-x-auto text-[11px] sm:text-xs">
               <code>
-                <span className="text-[#fc618d]">export const </span>
+                <span className="text-[#fc618d]">export function </span>
                 <span className="text-[#fce566]">DeveloperProfile</span>
-                <span className="text-[#fcfcfa]">: </span>
-                <span className="text-[#5ad4e6]">React.FC</span>
-                <span className="text-[#fcfcfa]"> = () =&gt; &#123;</span>
+                <span className="text-[#fcfcfa]">() &#123;</span>
                 {'\n'}  <span className="text-[#fc618d]">return</span> (
                 {'\n'}    <span className="text-[#5ad4e6]">&lt;Developer</span>
                 {'\n'}      <span className="text-[#fd9353]">name</span>=<span className="text-[#7bd88f]">"Mihai Straculencu"</span>
@@ -122,7 +120,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDownloadResume }) =>
                 {'\n'}      <span className="text-[#fd9353]">status</span>=<span className="text-[#7bd88f]">"Ready to Start"</span>
                 {'\n'}    <span className="text-[#5ad4e6]">/&gt;</span>
                 {'\n'}  );
-                {'\n'}<span className="text-[#fcfcfa]">&#125;;</span>
+                {'\n'}<span className="text-[#fcfcfa]">&#125;</span>
               </code>
             </pre>
           </div>
@@ -130,4 +128,4 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onDownloadResume }) =>
       </div>
     </section>
   );
-};
+}

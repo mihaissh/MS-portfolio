@@ -2,7 +2,7 @@ import React from 'react';
 import { Download, ShieldCheck, Printer } from 'lucide-react';
 import { CERTIFICATIONS_DOWNLOADS } from '../data/resumeData';
 
-export const CertificationsDownloads: React.FC = () => {
+export function CertificationsDownloads() {
   const handlePrint = () => {
     window.print();
   };
