@@ -1,12 +1,9 @@
 import React from 'react';
-import { Download, ShieldCheck, Printer } from 'lucide-react';
-import { CERTIFICATIONS_DOWNLOADS } from '../data/resumeData';
+import { Download, Printer } from 'lucide-react';
+import { CERTIFICATIONS_DOWNLOADS, EDUCATION } from '../data/resumeData';
+import { SectionHeading } from './SectionHeading';
 
 export function CertificationsDownloads() {
-  const handlePrint = () => {
-    window.print();
-  };
-
   const handleDownload = (url: string, filename: string) => {
     const link = document.createElement('a');
     link.href = url;
@@ -15,81 +12,73 @@ export function CertificationsDownloads() {
   };
 
   return (
-    <section id="downloads" className="py-10 border-b border-[#403e43]">
-      {/* Code Comment Header */}
-      <div className="flex items-center space-x-2 font-mono text-xs text-[#727072] mb-6 overflow-hidden">
-        <span className="text-[#fc618d] shrink-0">// 04. CERTIFICATIONS_&_DOWNLOADS</span>
-        <span className="text-[#403e43] hidden sm:inline">---------------------------------------------------------</span>
-      </div>
+    <section id="downloads" className="border-t border-line py-24">
+      <SectionHeading
+        file="downloads.tsx"
+        title="CV and education"
+        description="My current CV and the accredited certification, both as PDF"
+        aside={
+          <button
+            onClick={() => window.print()}
+            className="no-print inline-flex h-9 items-center gap-2 self-start rounded-lg px-3 text-[14px] text-fg-2 transition-colors hover:bg-bg-raised hover:text-fg md:self-auto"
+          >
+            <Printer className="h-4 w-4" strokeWidth={1.5} />
+            Print this page
+          </button>
+        }
+      />
 
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-        <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-[#fcfcfa] font-sans flex flex-wrap items-center gap-x-2">
-            <span className="text-[#fc618d] font-mono text-xl">const</span>
-            <span>downloads</span>
-            <span className="text-[#fc618d] font-mono text-xl">:</span>
-            <span className="text-[#5ad4e6] font-mono text-xl">Document[]</span>
-          </h2>
-          <p className="text-[#a8a2a8] text-sm mt-1 font-sans">
-            Printable curriculum vitae, web development engineering certification, and live profile URL
-          </p>
-        </div>
-
-        {/* Print Trigger Button */}
-        <button
-          onClick={handlePrint}
-          className="inline-flex items-center space-x-2 px-4 py-2 bg-[#2d2a2e] hover:bg-[#403e43] border border-[#403e43] text-[#fce566] font-mono text-xs rounded transition-colors"
-        >
-          <Printer className="w-4 h-4" />
-          <span>Print 2-Page Resume</span>
-        </button>
-      </div>
-
-      {/* Downloads Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div className="grid gap-4 md:grid-cols-2">
         {CERTIFICATIONS_DOWNLOADS.map((doc) => {
-          const filename = doc.downloadUrl.split('/').pop() ?? doc.downloadUrl;
+          const filename =
+            doc.id === 'resume-pdf'
+              ? 'Mihai_Straculencu_CV_2026.pdf'
+              : (doc.downloadUrl.split('/').pop() ?? doc.downloadUrl);
           return (
-            <div
+            <article
               key={doc.id}
-              className="bg-[#2d2a2e] border border-[#403e43] rounded-lg p-5 flex flex-col justify-between hover:border-[#fce566]/60 transition-all shadow-editor group"
+              className="print-card flex gap-5 rounded-2xl border border-line bg-bg-card p-6"
             >
-              <div>
-                <div className="flex items-center justify-between font-mono text-xs mb-3">
-                  <span className="px-2 py-0.5 bg-[#fce566]/10 text-[#fce566] border border-[#fce566]/30 rounded font-medium">
-                    {doc.type} • {doc.fileSize}
+              <div
+                className="flex h-14 w-11 shrink-0 items-end justify-center rounded-md border border-line-strong bg-bg-raised pb-2 font-mono text-[11px] text-fg-2"
+                aria-hidden
+              >
+                PDF
+              </div>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <h3 className="text-[17px] font-medium leading-6 text-fg">{doc.title}</h3>
+                <p className="mt-1 text-[14px] leading-[22px] text-fg-3">{doc.issuer}</p>
+                <p className="mt-3 text-[15px] leading-6 text-fg-2">{doc.description}</p>
+                <div className="mt-auto flex items-center justify-between gap-4 pt-5">
+                  <span className="font-mono text-[12px] tabular-nums text-fg-3">
+                    {doc.year} · {doc.fileSize}
                   </span>
-                  <span className="text-[#727072]">{doc.year}</span>
+                  <button
+                    onClick={() => handleDownload(doc.downloadUrl, filename)}
+                    className="no-print inline-flex h-9 items-center gap-2 rounded-lg border border-line-strong bg-bg-raised px-3 text-[14px] text-fg transition-colors hover:bg-[#2c2a2d]"
+                  >
+                    <Download className="h-4 w-4 text-fg-3" strokeWidth={1.5} />
+                    Download
+                  </button>
                 </div>
-
-                <h3 className="text-lg font-bold text-[#fcfcfa] font-sans group-hover:text-[#fce566] transition-colors mb-1">
-                  {doc.title}
-                </h3>
-                <p className="text-xs font-mono text-[#5ad4e6] mb-3">{doc.issuer}</p>
-                <p className="text-[#a8a2a8] text-xs leading-relaxed font-sans mb-4">
-                  {doc.description}
-                </p>
               </div>
-
-              <div className="pt-3 border-t border-[#403e43]/40 flex items-center justify-between font-mono text-xs">
-                <span className="text-[#7bd88f] flex items-center space-x-1">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Verified PDF</span>
-                </span>
-
-                <button
-                  onClick={() => handleDownload(doc.downloadUrl, filename)}
-                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-[#fce566] text-[#222222] font-semibold rounded hover:bg-[#fce566]/90 transition-colors"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download</span>
-                </button>
-              </div>
-            </div>
+            </article>
           );
         })}
       </div>
+
+      <ol className="mt-12 divide-y divide-line border-y border-line">
+        {EDUCATION.map((ed) => (
+          <li key={ed.title} className="grid gap-2 py-6 md:grid-cols-[220px_minmax(0,1fr)] md:gap-10">
+            <p className="font-mono text-[13px] leading-6 tabular-nums text-fg-2">{ed.period}</p>
+            <div className="max-w-[44rem]">
+              <h3 className="text-[16px] font-medium leading-6 text-fg">{ed.title}</h3>
+              <p className="text-[15px] leading-6 text-fg-2">{ed.school}</p>
+              {ed.detail && <p className="mt-2 text-[14px] leading-[22px] text-fg-3">{ed.detail}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
     </section>
   );
-};
-
+}

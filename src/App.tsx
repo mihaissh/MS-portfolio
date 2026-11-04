@@ -39,6 +39,18 @@ export function App() {
     return () => observer.disconnect();
   }, []);
 
+  // ⌘K / Ctrl+K toggles the command palette
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen((open) => !open);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   const handleNavigate = (sectionId: string) => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
@@ -50,7 +62,7 @@ export function App() {
   const handleDownloadResume = () => {
     const link = document.createElement('a');
     link.href = '/MS-Resume.pdf';
-    link.download = 'Mihai-Straculencu-Resume.pdf';
+    link.download = 'Mihai_Straculencu_CV_2026.pdf';
     link.click();
   };
 
@@ -61,14 +73,12 @@ export function App() {
       onOpenCommandPalette={() => setCommandPaletteOpen(true)}
       onDownloadResume={handleDownloadResume}
     >
-      <div className="space-y-12 max-w-5xl mx-auto">
-        <HeroSection onDownloadResume={handleDownloadResume} />
-        <WorkExperience />
-        <FeaturedProjects />
-        <TechnicalSkills />
-        <CertificationsDownloads />
-        <AboutSection />
-      </div>
+      <HeroSection onDownloadResume={handleDownloadResume} />
+      <WorkExperience />
+      <FeaturedProjects />
+      <TechnicalSkills />
+      <CertificationsDownloads />
+      <AboutSection />
 
       <CommandPalette
         isOpen={commandPaletteOpen}

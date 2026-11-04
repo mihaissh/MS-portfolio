@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, FileText, ArrowRight, X, Copy, Check, ExternalLink, Download } from 'lucide-react';
+import { Search, FileText, Copy, Check, Download, CornerDownLeft } from 'lucide-react';
 import { PERSONAL_INFO, NAV_ITEMS } from '../data/resumeData';
 
 interface CommandPaletteProps {
@@ -9,29 +9,22 @@ interface CommandPaletteProps {
   onDownloadResume: () => void;
 }
 
-export function CommandPalette({
-  isOpen,
-  onClose,
-  onNavigate,
-  onDownloadResume,
-}: CommandPaletteProps) {
+const rowClass =
+  'group flex h-10 w-full items-center gap-3 rounded-lg px-3 text-left text-[14px] text-fg transition-colors hover:bg-bg-raised';
+const iconClass = 'h-4 w-4 shrink-0 text-fg-3';
+
+export function CommandPalette({ isOpen, onClose, onNavigate, onDownloadResume }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedJson, setCopiedJson] = useState(false);
 
   useEffect(() => {
+    if (!isOpen) setQuery('');
+  }, [isOpen]);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        if (isOpen) {
-          onClose();
-        } else {
-          // Open handled outside or state toggle
-        }
-      }
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
+      if (e.key === 'Escape' && isOpen) onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -39,9 +32,9 @@ export function CommandPalette({
 
   if (!isOpen) return null;
 
-  const filteredNav = NAV_ITEMS.filter(item =>
-    item.label.toLowerCase().includes(query.toLowerCase()) ||
-    item.comment.toLowerCase().includes(query.toLowerCase())
+  const q = query.toLowerCase();
+  const filteredNav = NAV_ITEMS.filter(
+    (item) => item.label.toLowerCase().includes(q) || item.comment.toLowerCase().includes(q),
   );
 
   const handleCopyEmail = () => {
@@ -57,101 +50,73 @@ export function CommandPalette({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-150">
-      <div 
-        className="w-full max-w-2xl bg-[#2d2a2e] border border-[#403e43] rounded-lg shadow-editor overflow-hidden flex flex-col text-[#fcfcfa]"
+    <div
+      className="no-print fixed inset-0 z-50 flex items-start justify-center bg-black/60 p-4 pt-16 sm:pt-24"
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-label="Command palette"
+        className="pop flex w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-line-strong bg-bg-card"
+        style={{ boxShadow: '0 24px 64px -16px rgb(0 0 0 / 0.7)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3 border-b border-[#403e43] bg-[#222222]">
-          <Search className="w-5 h-5 text-[#fc618d] mr-3 shrink-0" />
+        <div className="flex h-12 items-center gap-3 border-b border-line px-4">
+          <Search className="h-4 w-4 shrink-0 text-fg-3" strokeWidth={1.5} />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Type a command or search section (e.g. experience, projects, skills)..."
-            className="w-full bg-transparent text-[#fcfcfa] placeholder-[#727072] font-mono text-sm focus:outline-none"
+            placeholder="Search"
+            className="w-full bg-transparent text-[15px] text-fg placeholder-fg-3 focus:outline-none"
             autoFocus
           />
-          <button 
-            onClick={onClose}
-            className="p-1 text-[#a8a2a8] hover:text-[#fcfcfa] rounded hover:bg-[#403e43]/50 transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <kbd className="keycap">Esc</kbd>
         </div>
 
-        {/* Results List */}
-        <div className="max-h-80 overflow-y-auto p-2 font-mono text-sm space-y-1">
-          {/* Quick Actions */}
-          <div className="px-3 py-1.5 text-xs text-[#fc618d] font-semibold tracking-wider uppercase border-b border-[#403e43]/40">
-            Quick Actions & Commands
-          </div>
+        <div className="max-h-96 overflow-y-auto p-2">
+          <p className="px-3 pb-1 pt-2 text-[12px] text-fg-3">Actions</p>
 
-          <button
-            onClick={() => { onDownloadResume(); onClose(); }}
-            className="w-full flex items-center justify-between px-3 py-2 text-left rounded hover:bg-[#403e43]/50 group transition-colors"
-          >
-            <div className="flex items-center space-x-2.5">
-              <Download className="w-4 h-4 text-[#7bd88f]" />
-              <span className="text-[#fcfcfa]">Download Resume PDF</span>
-            </div>
-            <span className="text-xs text-[#a8a2a8] group-hover:text-[#7bd88f]">Print / Download</span>
+          <button onClick={() => { onDownloadResume(); onClose(); }} className={rowClass}>
+            <Download className={iconClass} strokeWidth={1.5} />
+            <span className="flex-1">Download CV</span>
+            <span className="font-mono text-[12px] text-fg-3">PDF</span>
           </button>
 
-          <button
-            onClick={handleCopyEmail}
-            className="w-full flex items-center justify-between px-3 py-2 text-left rounded hover:bg-[#403e43]/50 group transition-colors"
-          >
-            <div className="flex items-center space-x-2.5">
-              {copiedEmail ? <Check className="w-4 h-4 text-[#7bd88f]" /> : <Copy className="w-4 h-4 text-[#5ad4e6]" />}
-              <span className="text-[#fcfcfa]">Copy Email Address ({PERSONAL_INFO.email})</span>
-            </div>
-            <span className="text-xs text-[#a8a2a8]">
-              {copiedEmail ? "Copied!" : "Clipboard"}
-            </span>
+          <button onClick={handleCopyEmail} className={rowClass}>
+            {copiedEmail ? (
+              <Check className="h-4 w-4 shrink-0 text-ok" strokeWidth={1.5} />
+            ) : (
+              <Copy className={iconClass} strokeWidth={1.5} />
+            )}
+            <span className="flex-1">{copiedEmail ? 'Email copied' : 'Copy email'}</span>
+            <span className="font-mono text-[12px] text-fg-3">{PERSONAL_INFO.email}</span>
           </button>
 
-          <button
-            onClick={handleCopyJson}
-            className="w-full flex items-center justify-between px-3 py-2 text-left rounded hover:bg-[#403e43]/50 group transition-colors"
-          >
-            <div className="flex items-center space-x-2.5">
-              {copiedJson ? <Check className="w-4 h-4 text-[#7bd88f]" /> : <FileText className="w-4 h-4 text-[#fce566]" />}
-              <span className="text-[#fcfcfa]">Copy Developer Profile as JSON</span>
-            </div>
-            <span className="text-xs text-[#a8a2a8]">
-              {copiedJson ? "Copied JSON!" : "Copy"}
-            </span>
+          <button onClick={handleCopyJson} className={rowClass}>
+            {copiedJson ? (
+              <Check className="h-4 w-4 shrink-0 text-ok" strokeWidth={1.5} />
+            ) : (
+              <FileText className={iconClass} strokeWidth={1.5} />
+            )}
+            <span className="flex-1">{copiedJson ? 'Profile copied' : 'Copy profile as JSON'}</span>
           </button>
 
-          {/* Section Navigation */}
-          <div className="px-3 py-1.5 pt-3 text-xs text-[#5ad4e6] font-semibold tracking-wider uppercase border-b border-[#403e43]/40">
-            Go to Editor Section
-          </div>
+          {filteredNav.length > 0 && <p className="px-3 pb-1 pt-4 text-[12px] text-fg-3">Sections</p>}
 
           {filteredNav.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => { onNavigate(item.id); onClose(); }}
-              className="w-full flex items-center justify-between px-3 py-2 text-left rounded hover:bg-[#403e43]/50 group transition-colors"
-            >
-              <div className="flex items-center space-x-3">
-                <span className="text-[#727072] text-xs font-mono w-6">:{item.lineNumber}</span>
-                <span className="text-[#fce566] font-mono">{item.label}</span>
-                <span className="text-[#a8a2a8] text-xs font-sans hidden sm:inline">{item.comment}</span>
-              </div>
-              <ArrowRight className="w-4 h-4 text-[#727072] group-hover:text-[#fc618d] group-hover:translate-x-0.5 transition-all" />
+            <button key={item.id} onClick={() => { onNavigate(item.id); onClose(); }} className={rowClass}>
+              <span className="w-4 shrink-0 text-center font-mono text-[12px] text-fg-3">#</span>
+              <span className="flex-1">{item.comment}</span>
+              <span className="font-mono text-[12px] text-fg-3">{item.label}</span>
+              <CornerDownLeft
+                className="h-4 w-4 text-fg-3 opacity-0 transition-opacity group-hover:opacity-100"
+                strokeWidth={1.5}
+              />
             </button>
           ))}
-        </div>
-
-        {/* Footer info */}
-        <div className="px-4 py-2 bg-[#222222] border-t border-[#403e43] flex items-center justify-between text-xs text-[#727072] font-mono">
-          <span>Navigate with <kbd className="px-1.5 py-0.5 bg-[#403e43] text-[#fcfcfa] rounded text-[10px]">↑</kbd> <kbd className="px-1.5 py-0.5 bg-[#403e43] text-[#fcfcfa] rounded text-[10px]">↓</kbd></span>
-          <span>Close with <kbd className="px-1.5 py-0.5 bg-[#403e43] text-[#fcfcfa] rounded text-[10px]">Esc</kbd></span>
         </div>
       </div>
     </div>
   );
-};
+}

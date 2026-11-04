@@ -1,13 +1,13 @@
 # Mihai Straculencu
 **Full-Stack & Frontend Developer | React, Node.js & Gen AI (LLM / RAG)**  
-Brașov, Romania (Open for Relocation to Cluj-Napoca / Remote) | mstraculencu@gmail.com  
+Romania (open to Cluj-Napoca, Bucharest or remote) | mstraculencu@gmail.com  
 [GitHub](https://github.com/mihaissh) | [LinkedIn](https://www.linkedin.com/in/straculencu-mihai/) | [Portfolio](https://quin69-vod.vercel.app/)  
 Resume PDF: [MS-Resume.pdf](resume/MS-Resume.pdf) | Certification PDF: [mihai-straculencu-certificare.pdf](resume/mihai-straculencu-certificare.pdf)
 
 ---
 
 ## About
-Full-stack and frontend developer based in Brașov, Romania (open for remote roles and relocation to Cluj-Napoca). I build web applications using **React**, **Next.js**, **TypeScript**, and **Node.js**, with hands-on experience integrating REST APIs, database setups, and Gen AI features like LLM prompts and document search (RAG) into clean web interfaces.
+Full-stack and frontend developer in Romania (open to Cluj-Napoca, Bucharest or remote). I build web applications using **React**, **Next.js**, **TypeScript**, and **Node.js**, with hands-on experience integrating REST APIs, database setups, and Gen AI features like LLM prompts and document search (RAG) into clean web interfaces.
 
 ---
 
@@ -23,7 +23,7 @@ Full-stack and frontend developer based in Brașov, Romania (open for remote rol
 ## Work Experience
 
 ### **Full-Stack & Frontend Developer — Freelance & Client Projects**  
-*2022 – Present | Remote & Brașov, Romania*
+*2022 – Present | Remote & Romania*
 
 - Built web applications and client websites using **React**, **Next.js**, **Node.js**, **TypeScript**, **Angular**, and **Bootstrap**.
 - Worked on **[Remax.md](https://remax.md/)** to build an interactive property map with **OpenStreetMap**, JavaScript, and Bootstrap, improving mobile layout and search speed.
@@ -32,14 +32,14 @@ Full-stack and frontend developer based in Brașov, Romania (open for remote rol
 - Explored Gen AI workflows by experimenting with **LLM API integrations**, **prompt engineering**, and basic **RAG (Retrieval-Augmented Generation)** document search scripts in Python and Node.js.
 - Wrote unit tests using **Jest** and **React Testing Library** before deploying applications to Vercel and Netlify.
 
-### **Store Operations & Stock Management — Romstal Brașov & Bran**  
-*2024 – 2025 | Brașov & Bran, Romania*
+### **Store Operations & Stock Management — Romstal**  
+*2024 – 2025 | Romania*
 
-- Handled stock code lookups, product catalogs, and inventory references for HVAC, plumbing, and sanitary equipment across Brașov and Bran store locations.
+- Handled stock code lookups, product catalogs, and inventory references for HVAC, plumbing, and sanitary equipment across store locations.
 - Built a mobile product search tool (**Romstal Stock Search**) using **React**, **TypeScript**, **Vite**, and **Supabase** so staff could look up product codes instantly on their phones instead of searching through PDF price lists.
 
 ### **Independent Web & Tool Development**  
-*2022 – Present | Brașov, Romania*
+*2022 – Present | Romania*
 
 - **Quin69 VOD Archive:** Built a Twitch stream archive web app for watching past streams alongside synced live chat replay, log search, and player keyboard shortcuts.
 - **Quin69 Playlist Tracker:** Built a song request tracker for Twitch streams that polls chat logs every 30 seconds and links directly to Spotify and YouTube.
@@ -61,7 +61,7 @@ Full-stack and frontend developer based in Brașov, Romania (open for remote rol
 
 ### **Romstal Stock Code Search**  
 *React 19, TypeScript, Vite, Tailwind CSS, Supabase, Vercel* | [Live Site](https://romstal-codes.vercel.app/) | [GitHub](https://github.com/mihaissh/romstal-codes)
-- Mobile product search tool for warehouse staff in Brașov and Bran to find stock codes by name.
+- Mobile product search tool for warehouse staff to find stock codes by name.
 - Includes barcode scanning, offline search history, and Supabase integration. Total bundle under 50KB.
 
 ### **Gen AI & RAG Search Prototype (PoC)**  
