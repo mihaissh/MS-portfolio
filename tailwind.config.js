@@ -1,45 +1,49 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        monokai: {
-          bg: '#222222',
-          panel: '#2d2a2e',
-          gutter: '#19181a',
-          sidebar: '#19181a',
-          border: '#403e43',
-          card: '#272428',
-          cardHover: '#322f33',
-          activeTab: '#222222',
-          inactiveTab: '#2d2a2e',
+        // Warm graphite ramp, one accent (Monokai pink)
+        bg: {
+          deep: '#121113',
+          DEFAULT: '#161517',
+          card: '#1c1b1d',
+          raised: '#252326',
+        },
+        fg: {
+          DEFAULT: '#efece8',
+          2: '#a9a4a6',
+          3: '#8a8587',
+        },
+        line: 'rgb(239 236 232 / 0.08)',
+        'line-strong': 'rgb(239 236 232 / 0.14)',
+        accent: '#fc618d',
+        ok: '#4cc38a',
+        // Syntax colors live only inside the hero code window
+        syn: {
+          bg: '#211f22',
           text: '#fcfcfa',
-          muted: '#a8a2a8',
-          dim: '#727072',
+          comment: '#928d8f',
           pink: '#fc618d',
-          green: '#7bd88f',
-          yellow: '#fce566',
-          cyan: '#5ad4e6',
-          orange: '#fd9353',
-          purple: '#948ae3',
-        }
+          green: '#a9dc76',
+          yellow: '#ffd866',
+          cyan: '#78dce8',
+          orange: '#fc9867',
+          purple: '#ab9df2',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'Consolas', 'Monaco', 'Courier New', 'monospace'],
+        sans: ['"Inter Variable"', 'Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'Consolas', 'monospace'],
       },
-      boxShadow: {
-        'editor': '0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-        'glow-pink': '0 0 20px -3px rgba(252, 97, 141, 0.3)',
-        'glow-green': '0 0 20px -3px rgba(123, 216, 143, 0.3)',
-        'glow-cyan': '0 0 20px -3px rgba(90, 212, 230, 0.3)',
-      }
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      },
+      transitionDuration: {
+        DEFAULT: '150ms',
+      },
     },
   },
   plugins: [],
-}
+};

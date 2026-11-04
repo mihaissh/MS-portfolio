@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Menu,
-  X,
-  GitBranch,
-  ChevronRight,
-  CheckCircle2,
-  Code2,
-  FileCode,
-  Terminal,
-  Layers,
-  Sparkles,
-} from 'lucide-react';
-import { NAV_ITEMS } from '../data/resumeData';
+import { Menu, X, Github, Linkedin, Search } from 'lucide-react';
+import { NAV_ITEMS, PERSONAL_INFO } from '../data/resumeData';
 
 interface EditorFrameProps {
   children: React.ReactNode;
@@ -21,165 +10,111 @@ interface EditorFrameProps {
   onDownloadResume: () => void;
 }
 
-export function EditorFrame({
-  children,
-  activeSection,
-  onNavigate,
-  onOpenCommandPalette,
-  onDownloadResume,
-}: EditorFrameProps) {
+export function EditorFrame({ children, activeSection, onNavigate, onOpenCommandPalette }: EditorFrameProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const lineNumbers = Array.from({ length: 180 }, (_, i) => i + 1);
-
   return (
-    <div className="min-h-screen bg-[#222222] text-[#fcfcfa] flex flex-col font-sans selection:bg-[#fc618d]/30 selection:text-[#fcfcfa]">
-
-      {/* 1. IDE Main Menu & Command Bar Header */}
-      <header className="no-print bg-[#19181a] border-b border-[#403e43] h-10 px-3 sm:px-4 flex items-center justify-between font-mono text-xs select-none sticky top-0 z-40">
-        {/* Left: IDE Workspace Title & Breadcrumb Icon */}
-        <div className="flex items-center space-x-2.5 min-w-0">
-          <div className="flex items-center space-x-1.5 text-[#5ad4e6] font-semibold text-xs shrink-0">
-            <Code2 className="w-4 h-4 text-[#fc618d]" />
-            <span className="text-[#fcfcfa] font-bold">mihaissh / portfolio</span>
-          </div>
-
-          <span className="text-[#403e43] hidden md:inline">|</span>
-
-          {/* Breadcrumb path */}
-          <div className="hidden md:flex items-center gap-1 text-[#a8a2a8] text-[11px] truncate">
-            <span>src</span>
-            <ChevronRight className="w-3 h-3 text-[#727072]" />
-            <span className="text-[#7bd88f]">components</span>
-            <ChevronRight className="w-3 h-3 text-[#727072]" />
-            <span className="text-[#fce566]">resume.tsx</span>
-          </div>
-        </div>
-
-        {/* Right: Actions & Diagnostics */}
-        <div className="flex items-center space-x-3 shrink-0">
-          <div className="hidden md:flex items-center space-x-1.5 text-[11px] font-mono text-[#7bd88f]">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#7bd88f]" />
-            <span>0 errors</span>
-          </div>
-
-          {/* Mobile Menu Toggle */}
+    <div className="flex min-h-screen flex-col">
+      <header className="no-print sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur-md">
+        <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between gap-6 px-6 lg:px-8">
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 bg-[#2d2a2e] text-[#fcfcfa] rounded sm:hidden border border-[#403e43]"
-            aria-label="Toggle menu"
+            onClick={() => onNavigate('hero')}
+            className="shrink-0 text-[15px] font-medium text-fg"
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            Mihai Straculencu
           </button>
+
+          {/* File tabs */}
+          <nav className="hidden h-full items-stretch xl:flex" aria-label="Sections">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`relative px-3 font-mono text-[13px] transition-colors ${
+                    isActive ? 'text-fg' : 'text-fg-3 hover:text-fg-2'
+                  }`}
+                >
+                  {item.label}
+                  {isActive && <span className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-accent" />}
+                </button>
+              );
+            })}
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-1">
+            <button
+              onClick={onOpenCommandPalette}
+              className="hidden h-8 items-center gap-2 rounded-lg border border-line bg-bg-card pl-3 pr-1.5 text-[13px] text-fg-3 transition-colors hover:border-line-strong hover:text-fg-2 sm:inline-flex"
+            >
+              <Search className="h-4 w-4" strokeWidth={1.5} />
+              <span className="mr-2">Search</span>
+              <kbd className="keycap">⌘K</kbd>
+            </button>
+            <a
+              href={PERSONAL_INFO.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-lg text-fg-3 transition-colors hover:bg-bg-raised hover:text-fg"
+            >
+              <Github className="h-[18px] w-[18px]" strokeWidth={1.5} />
+            </a>
+            <a
+              href={PERSONAL_INFO.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-fg-3 transition-colors hover:bg-bg-raised hover:text-fg"
+            >
+              <Linkedin className="h-[18px] w-[18px]" strokeWidth={1.5} />
+            </a>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="ml-1 inline-flex h-8 w-8 items-center justify-center rounded-lg text-fg-2 transition-colors hover:bg-bg-raised xl:hidden"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X className="h-[18px] w-[18px]" strokeWidth={1.5} /> : <Menu className="h-[18px] w-[18px]" strokeWidth={1.5} />}
+            </button>
+          </div>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="pop border-t border-line bg-bg xl:hidden">
+            <div className="mx-auto max-w-[1200px] px-4 py-3 lg:px-6">
+              {NAV_ITEMS.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    onNavigate(item.id);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`flex h-10 w-full items-center justify-between rounded-lg px-3 text-left text-[15px] transition-colors ${
+                    activeSection === item.id ? 'bg-bg-raised text-fg' : 'text-fg-2 hover:bg-bg-card'
+                  }`}
+                >
+                  <span>{item.comment}</span>
+                  <span className="font-mono text-[12px] text-fg-3">{item.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </header>
 
-      {/* 2. IDE Editor Tabs Bar */}
-      <nav className="no-print bg-[#19181a] border-b border-[#403e43] px-2 sm:px-4 flex items-center justify-between text-xs font-mono sticky top-10 z-30 overflow-x-auto no-scrollbar select-none">
-        {/* Editor File Tabs */}
-        <div className="flex items-center space-x-1 min-w-0">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className={`px-3 py-1.5 flex items-center space-x-2 text-xs font-mono transition-colors shrink-0 rounded-t border-t-2 ${
-                  isActive
-                    ? 'bg-[#222222] border-[#fc618d] text-[#fcfcfa] font-semibold'
-                    : 'bg-[#19181a] border-transparent text-[#727072] hover:bg-[#2d2a2e] hover:text-[#a8a2a8]'
-                }`}
-              >
-                <FileCode className={`w-3.5 h-3.5 ${isActive ? 'text-[#5ad4e6]' : 'text-[#727072]'}`} />
-                <span>{item.label}</span>
-                {isActive && <span className="text-[#fc618d] text-[10px]">●</span>}
-              </button>
-            );
-          })}
-        </div>
+      <main className="mx-auto w-full max-w-[1200px] flex-1 px-6 lg:px-8">{children}</main>
 
-        {/* Current Active Section Comment Badge (Desktop) */}
-        <div className="hidden lg:flex items-center space-x-1 text-[11px] font-mono text-[#fc618d] pl-4 shrink-0">
-          <span>{NAV_ITEMS.find((n) => n.id === activeSection)?.comment || '// 00 Intro'}</span>
-        </div>
-      </nav>
-
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="sm:hidden no-print fixed top-[4.5rem] left-0 right-0 z-50 bg-[#2d2a2e] border-b border-[#403e43] shadow-xl">
-          <div className="p-4 font-mono text-xs space-y-1.5">
-            <div className="text-[#727072] text-[10px] uppercase font-bold tracking-wider mb-3">
-              // Navigation Tabs
-            </div>
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  onNavigate(item.id);
-                  setMobileMenuOpen(false);
-                }}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded text-left transition-colors ${
-                  activeSection === item.id
-                    ? 'bg-[#fc618d]/20 text-[#fc618d] font-bold border border-[#fc618d]/30'
-                    : 'text-[#a8a2a8] hover:bg-[#403e43]/60 hover:text-[#fcfcfa]'
-                }`}
-              >
-                <div className="flex items-center space-x-2">
-                  <FileCode className="w-3.5 h-3.5 text-[#5ad4e6]" />
-                  <span>{item.label}</span>
-                </div>
-                <span className="text-[10px] text-[#727072] shrink-0 ml-2">:{item.lineNumber}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 3. Main Editor Work Area with Line Numbers */}
-      <div className="flex-1 flex max-w-7xl w-full mx-auto print-container min-w-0">
-        {/* Line number gutter — desktop only */}
-        <div className="no-print w-10 sm:w-14 bg-[#19181a] border-r border-[#403e43] py-6 select-none font-mono text-[11px] text-[#5c5855] text-right pr-2 sm:pr-3 shrink-0 hidden md:block">
-          {lineNumbers.map((num) => (
-            <div key={num} className="leading-6 hover:text-[#fc618d] transition-colors">
-              {num}
-            </div>
-          ))}
-        </div>
-
-        {/* Content View */}
-        <main className="flex-1 p-4 sm:p-8 lg:p-10 min-w-0 overflow-x-hidden">
-          {children}
-        </main>
-      </div>
-
-      {/* 4. Authentic IDE Status Bar Footer */}
-      <footer className="no-print bg-[#19181a] border-t border-[#403e43] h-7 px-3 sm:px-4 flex items-center justify-between font-mono text-[11px] text-[#a8a2a8] select-none sticky bottom-0 z-40">
-        {/* Left Status Bar Items */}
-        <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
-          <span className="flex items-center space-x-1 text-[#7bd88f] shrink-0">
-            <GitBranch className="w-3 h-3" />
-            <span>main*</span>
-          </span>
-          <span className="text-[#403e43] shrink-0">|</span>
-          <span className="flex items-center space-x-1 text-[#5ad4e6] shrink-0">
-            <CheckCircle2 className="w-3 h-3 text-[#7bd88f]" />
-            <span>Prettier</span>
-          </span>
-          <span className="text-[#403e43] hidden sm:inline shrink-0">|</span>
-          <span className="text-[#a8a2a8] hidden sm:inline shrink-0">TypeScript 5.7</span>
-        </div>
-
-        {/* Right Status Bar Items */}
-        <div className="flex items-center space-x-2 sm:space-x-3 text-[11px] shrink-0">
-          <span className="hidden sm:inline">Ln 42, Col 18</span>
-          <span className="text-[#403e43] hidden sm:inline">|</span>
-          <span className="hidden sm:inline text-[#a8a2a8]">Spaces: 2</span>
-          <span className="text-[#403e43] hidden sm:inline">|</span>
-          <span className="text-[#7bd88f]">UTF-8</span>
-          <span className="text-[#403e43]">|</span>
-          <span className="text-[#fc618d] font-bold">TypeScript React</span>
+      <footer className="no-print border-t border-line">
+        <div className="mx-auto flex max-w-[1200px] flex-col gap-2 px-6 py-8 text-[13px] text-fg-3 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+          <span>Mihai Straculencu · {PERSONAL_INFO.location}</span>
+          <a href={`mailto:${PERSONAL_INFO.email}`} className="font-mono transition-colors hover:text-fg">
+            {PERSONAL_INFO.email}
+          </a>
         </div>
       </footer>
     </div>
   );
-};
+}

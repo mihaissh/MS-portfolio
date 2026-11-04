@@ -1,9 +1,88 @@
 import React, { useState } from 'react';
-import { Mail, Github, Linkedin, ExternalLink, Download, Check, Terminal, MapPin } from 'lucide-react';
+import { Download, Check, Copy } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
 interface HeroSectionProps {
   onDownloadResume: () => void;
+}
+
+type Token = [string, string];
+
+const t = {
+  kw: 'text-syn-pink',
+  fn: 'text-syn-green',
+  tag: 'text-syn-cyan',
+  attr: 'text-syn-orange',
+  str: 'text-syn-yellow',
+  punct: 'text-syn-text',
+  com: 'text-syn-comment',
+};
+
+const CODE: Token[][] = [
+  [[t.com, '// Front-end developer']],
+  [[t.kw, 'export function '], [t.fn, 'DeveloperProfile'], [t.punct, '() {']],
+  [[t.kw, '  return '], [t.punct, '(']],
+  [[t.punct, '    <'], [t.tag, 'Developer']],
+  [[t.attr, '      name'], [t.punct, '='], [t.str, '"Mihai Straculencu"']],
+  [[t.attr, '      role'], [t.punct, '='], [t.str, '"Front-End Developer"']],
+  [[t.attr, '      experience'], [t.punct, '='], [t.str, '"2 years"']],
+  [[t.attr, '      location'], [t.punct, '='], [t.str, '"Romania"']],
+  [[t.attr, '      openTo'], [t.punct, '={['], [t.str, '"Cluj-Napoca"'], [t.punct, ', '], [t.str, '"Bucharest"'], [t.punct, ', '], [t.str, '"Remote"'], [t.punct, ']}']],
+  [[t.attr, '      stack'], [t.punct, '={[']],
+  [[t.str, '        "React"'], [t.punct, ', '], [t.str, '"Next.js"'], [t.punct, ',']],
+  [[t.str, '        "TypeScript"'], [t.punct, ', '], [t.str, '"Tailwind CSS"'], [t.punct, ',']],
+  [[t.punct, '      ]}']],
+  [[t.attr, '      lighthouse'], [t.punct, '='], [t.str, '"95+"']],
+  [[t.punct, '    />']],
+  [[t.punct, '  );']],
+  [[t.punct, '}']],
+];
+
+const CURRENT_LINE = 13;
+
+function CodeWindow() {
+  return (
+    <figure
+      className="overflow-hidden rounded-2xl border border-line-strong bg-syn-bg"
+      style={{ boxShadow: '0 1px 0 rgb(255 255 255 / 0.06) inset, 0 24px 48px -16px rgb(0 0 0 / 0.6)' }}
+      aria-label="Developer profile written as a React component"
+    >
+      <div className="flex h-10 items-center border-b border-line px-4">
+        <div className="flex gap-2" aria-hidden>
+          <span className="h-3 w-3 rounded-full bg-[#3a373b]" />
+          <span className="h-3 w-3 rounded-full bg-[#3a373b]" />
+          <span className="h-3 w-3 rounded-full bg-[#3a373b]" />
+        </div>
+        <span className="flex-1 text-center font-mono text-[12px] text-fg-3">DeveloperProfile.tsx</span>
+        <span className="w-[52px] text-right font-mono text-[12px] text-fg-3">TSX</span>
+      </div>
+      <pre className="overflow-x-auto py-4 font-mono text-[12px] leading-[22px] sm:text-[13px]">
+        <code className="block min-w-max">
+          {CODE.map((line, i) => (
+            <span
+              key={i}
+              className={`flex pr-6 ${i === CURRENT_LINE ? 'bg-white/[0.04]' : ''}`}
+            >
+              <span
+                className={`w-12 shrink-0 select-none pr-4 text-right tabular-nums ${
+                  i === CURRENT_LINE ? 'text-fg' : 'text-fg-3'
+                }`}
+              >
+                {i + 1}
+              </span>
+              <span className="whitespace-pre">
+                {line.map(([cls, text], j) => (
+                  <span key={j} className={cls}>
+                    {text}
+                  </span>
+                ))}
+              </span>
+            </span>
+          ))}
+        </code>
+      </pre>
+    </figure>
+  );
 }
 
 export function HeroSection({ onDownloadResume }: HeroSectionProps) {
@@ -16,115 +95,54 @@ export function HeroSection({ onDownloadResume }: HeroSectionProps) {
   };
 
   return (
-    <section id="hero" className="relative pt-6 pb-12 border-b border-[#403e43]">
-      {/* Code Comment Header */}
-      <div className="flex items-center space-x-2 font-mono text-xs text-[#727072] mb-6 overflow-hidden">
-        <span className="text-[#fc618d] shrink-0">// 00. INTRO & PROFILE</span>
-        <span className="text-[#403e43] hidden sm:inline">---------------------------------------------------------</span>
+    <section
+      id="hero"
+      className="grid min-h-[calc(100svh-56px)] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-16 lg:py-20"
+    >
+      <div>
+        <p className="mb-8 flex flex-wrap items-center gap-x-2 gap-y-1 text-[14px] text-fg-2">
+          <span className="h-2 w-2 rounded-full bg-ok" aria-hidden />
+          <span className="text-fg">{PERSONAL_INFO.availability}</span>
+          <span className="hidden text-fg-3 sm:inline">·</span>
+          <span className="basis-full sm:basis-auto">Cluj-Napoca, Bucharest or remote</span>
+        </p>
+
+        <h1 className="text-[44px] font-medium leading-[1.04] tracking-[-0.03em] text-fg sm:text-[64px]">
+          Mihai Straculencu
+        </h1>
+        <p className="mt-4 text-[18px] leading-7 text-fg-2 sm:text-[20px] sm:leading-[30px]">
+          Front-end developer working in React, Next.js, TypeScript and Tailwind CSS
+        </p>
+        <p className="mt-6 max-w-[34rem] text-[16px] leading-[26px] text-fg-2">
+          Two years building client websites and web apps, including an interactive property map for a real estate
+          agency and Next.js portals kept at 95+ on Lighthouse.
+        </p>
+
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <button
+            onClick={onDownloadResume}
+            className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-accent px-5 text-[15px] font-medium text-bg transition-[background-color,transform] hover:bg-[#ff7aa0] active:scale-[0.98]"
+          >
+            <Download className="h-[18px] w-[18px]" strokeWidth={1.75} />
+            Download CV
+          </button>
+          <button
+            onClick={handleCopyEmail}
+            className="inline-flex h-11 items-center gap-2 rounded-[10px] border border-line-strong bg-bg-raised px-5 text-[15px] text-fg transition-colors hover:bg-[#2c2a2d]"
+            style={{ boxShadow: 'inset 0 1px 0 rgb(255 255 255 / 0.06)' }}
+          >
+            {copied ? (
+              <Check className="h-[18px] w-[18px] text-ok" strokeWidth={1.75} />
+            ) : (
+              <Copy className="h-[18px] w-[18px] text-fg-3" strokeWidth={1.5} />
+            )}
+            {copied ? 'Email copied' : 'Copy email'}
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Main Details Column */}
-        <div className="lg:col-span-7 space-y-6">
-          {/* Availability Badge */}
-          <div className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 px-3 py-1 bg-[#7bd88f]/10 border border-[#7bd88f]/30 rounded-full font-mono text-xs text-[#7bd88f]">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7bd88f] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#7bd88f]"></span>
-            </span>
-            <span>{PERSONAL_INFO.availability}</span>
-            <span className="text-[#727072]">•</span>
-            <span className="text-[#fcfcfa]">Remote or Relocation Worldwide</span>
-          </div>
-
-          {/* Name & Title */}
-          <div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-[#fcfcfa] tracking-tight font-sans">
-              Mihai Straculencu
-            </h1>
-            <p className="mt-2 text-xl font-mono text-[#5ad4e6] flex items-center space-x-2">
-              <span>Frontend Developer</span>
-            </p>
-          </div>
-
-          {/* Tagline */}
-          <p className="text-[#a8a2a8] text-base leading-relaxed font-sans max-w-2xl">
-            {PERSONAL_INFO.tagline}
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <button
-              onClick={onDownloadResume}
-              className="inline-flex items-center space-x-2 px-4 py-2.5 bg-[#fc618d] hover:bg-[#fc618d]/90 text-[#222222] font-mono font-semibold text-sm rounded transition-all shadow-glow-pink active:scale-95"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download Resume PDF</span>
-            </button>
-
-            <button
-              onClick={handleCopyEmail}
-              className="inline-flex items-center space-x-2 px-4 py-2.5 bg-[#2d2a2e] hover:bg-[#403e43] border border-[#403e43] text-[#fcfcfa] font-mono text-sm rounded transition-colors"
-            >
-              {copied ? <Check className="w-4 h-4 text-[#7bd88f]" /> : <Mail className="w-4 h-4 text-[#5ad4e6]" />}
-              <span>{copied ? "Copied Email!" : "Copy Email"}</span>
-            </button>
-
-            <a
-              href={PERSONAL_INFO.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 bg-[#2d2a2e] hover:bg-[#403e43] border border-[#403e43] text-[#a8a2a8] hover:text-[#fcfcfa] rounded transition-colors"
-              title="GitHub Profile"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-
-            <a
-              href={PERSONAL_INFO.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 bg-[#2d2a2e] hover:bg-[#403e43] border border-[#403e43] text-[#a8a2a8] hover:text-[#fcfcfa] rounded transition-colors"
-              title="LinkedIn Profile"
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-
-        {/* JSX Props / Code Spec Block Column */}
-        <div className="lg:col-span-5 font-mono text-xs">
-          <div className="bg-[#2d2a2e] border border-[#403e43] rounded-lg p-4 shadow-editor relative overflow-hidden group">
-            {/* Header bar of code card */}
-            <div className="flex items-center justify-between border-b border-[#403e43]/60 pb-2 mb-3 text-[#727072]">
-              <div className="flex items-center space-x-2">
-                <Terminal className="w-3.5 h-3.5 text-[#fce566]" />
-                <span className="text-[#fcfcfa] font-semibold">DeveloperProfile.tsx</span>
-              </div>
-              <span className="text-[10px] text-[#7bd88f]">TSX • Validated</span>
-            </div>
-
-            {/* Syntax Highlighted Props */}
-            <pre className="text-[#a8a2a8] leading-relaxed overflow-x-auto text-[11px] sm:text-xs">
-              <code>
-                <span className="text-[#fc618d]">export function </span>
-                <span className="text-[#fce566]">DeveloperProfile</span>
-                <span className="text-[#fcfcfa]">() &#123;</span>
-                {'\n'}  <span className="text-[#fc618d]">return</span> (
-                {'\n'}    <span className="text-[#5ad4e6]">&lt;Developer</span>
-                {'\n'}      <span className="text-[#fd9353]">name</span>=<span className="text-[#7bd88f]">"Mihai Straculencu"</span>
-                {'\n'}      <span className="text-[#fd9353]">role</span>=<span className="text-[#7bd88f]">"Frontend Developer"</span>
-                {'\n'}      <span className="text-[#fd9353]">location</span>=<span className="text-[#7bd88f]">"Brașov / Open to Work Anywhere"</span>
-                {'\n'}      <span className="text-[#fd9353]">openTo</span>=&#123;[<span className="text-[#7bd88f]">"Remote Worldwide"</span>, <span className="text-[#7bd88f]">"Relocation Anywhere"</span>]&#125;
-                {'\n'}      <span className="text-[#fd9353]">stack</span>=&#123;[<span className="text-[#7bd88f]">"React"</span>, <span className="text-[#7bd88f]">"TypeScript"</span>, <span className="text-[#7bd88f]">"Node.js"</span>, <span className="text-[#7bd88f]">"AI-Assisted Dev"</span>]&#125;
-                {'\n'}      <span className="text-[#fd9353]">status</span>=<span className="text-[#7bd88f]">"Ready to Start"</span>
-                {'\n'}    <span className="text-[#5ad4e6]">/&gt;</span>
-                {'\n'}  );
-                {'\n'}<span className="text-[#fcfcfa]">&#125;</span>
-              </code>
-            </pre>
-          </div>
-        </div>
+      <div className="enter enter-2">
+        <CodeWindow />
       </div>
     </section>
   );

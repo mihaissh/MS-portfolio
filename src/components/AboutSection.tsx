@@ -1,59 +1,49 @@
 import React from 'react';
-import { Terminal, Coffee, Cpu, MapPin } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
+import { SectionHeading } from './SectionHeading';
+
+const FACTS = [
+  { label: 'Location', value: 'Romania, open to Cluj-Napoca, Bucharest or remote' },
+  { label: 'Languages', value: 'Romanian (native), English (fluent)' },
+  { label: 'Reference', value: 'Victor Danila, CEO and Principal Developer, Ariminum Remin SRL, on request' },
+];
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-10 border-b border-[#403e43]">
-      {/* Code Comment Header */}
-      <div className="flex items-center space-x-2 font-mono text-xs text-[#727072] mb-6 overflow-hidden">
-        <span className="text-[#fc618d] shrink-0">// 05. ABOUT // OFF_THE_CLOCK</span>
-        <span className="text-[#403e43] hidden sm:inline">---------------------------------------------------------</span>
-      </div>
+    <section id="about" className="border-t border-line py-24">
+      <SectionHeading file="about.md" title="About" />
 
-      <div className="bg-[#2d2a2e] border border-[#403e43] rounded-lg p-6 shadow-editor font-sans leading-relaxed text-[#a8a2a8]">
-        <div className="flex items-center space-x-3 mb-4 pb-3 border-b border-[#403e43]/60 font-mono text-xs">
-          <Terminal className="w-4 h-4 text-[#948ae3]" />
-          <span className="text-[#fcfcfa] font-bold">README.md</span>
-          <span className="text-[#727072]">• Developer Mindset & Personal Background</span>
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16">
+        <div className="max-w-[40rem] space-y-5 text-[17px] leading-[28px] text-fg-2">
+          <p>
+            I'm a front-end developer with 2 years of professional experience building client websites
+            and web apps in React, Next.js and Tailwind CSS. At Ariminum Remin I built an interactive property map for a
+            real estate agency, with listings loading live as you move around the map, and the client reported better
+            usability and more leads.
+          </p>
+          <p>
+            I also bring integration work on Boomi, SFTP and single sign-on, and a year running a Romstal store on my
+            own, so I'm comfortable working directly with clients and explaining technical things in plain language.
+          </p>
         </div>
 
-        <div className="space-y-4 text-sm">
-          <p>
-            I'm <strong className="text-[#fcfcfa]">Mihai Straculencu</strong>, a frontend developer based in <span className="text-[#5ad4e6]">Brașov, Romania</span>. I build React and TypeScript interfaces and use AI tools daily to write better code.
-          </p>
-
-          <p>
-            I've built things like an OpenStreetMap property browser, a warehouse stock lookup app (<span className="text-[#fce566]">Romstal Stock Search</span>), and Twitch VOD viewers with live chat replay. I care about clean code, fast UIs, and making things that actually work well.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            <div className="p-3 bg-[#222222] border border-[#403e43] rounded font-mono text-xs">
-              <div className="text-[#fc618d] font-bold mb-1 flex items-center space-x-1.5">
-                <Coffee className="w-3.5 h-3.5" />
-                <span>Coding Routine</span>
-              </div>
-              <p className="text-[#727072] text-[11px]">TypeScript, modular components, clean git commits, dark mode IDEs.</p>
+        <dl className="space-y-5 border-t border-line pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1">
+          {FACTS.map((f) => (
+            <div key={f.label}>
+              <dt className="font-mono text-[12px] leading-5 text-fg-3">{f.label}</dt>
+              <dd className="mt-1 text-[15px] leading-6 text-fg">{f.value}</dd>
             </div>
-
-            <div className="p-3 bg-[#222222] border border-[#403e43] rounded font-mono text-xs">
-              <div className="text-[#7bd88f] font-bold mb-1 flex items-center space-x-1.5">
-                <Cpu className="w-3.5 h-3.5" />
-                <span>AI-Assisted Workflow</span>
-              </div>
-              <p className="text-[#727072] text-[11px]">Using AI tools every day to write code faster, refactor, and test.</p>
-            </div>
-
-            <div className="p-3 bg-[#222222] border border-[#403e43] rounded font-mono text-xs">
-              <div className="text-[#5ad4e6] font-bold mb-1 flex items-center space-x-1.5">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>Work Availability</span>
-              </div>
-              <p className="text-[#727072] text-[11px]">Open to work anywhere — fully remote roles or relocation anywhere worldwide.</p>
-            </div>
+          ))}
+          <div>
+            <dt className="font-mono text-[12px] leading-5 text-fg-3">Email</dt>
+            <dd className="mt-1 text-[15px] leading-6">
+              <a href={`mailto:${PERSONAL_INFO.email}`} className="text-accent transition-colors hover:text-[#ff7aa0]">
+                {PERSONAL_INFO.email}
+              </a>
+            </dd>
           </div>
-        </div>
+        </dl>
       </div>
     </section>
   );
-};
+}
